@@ -6,33 +6,67 @@ protected:
     std::string nama;
     std::string peran;
     int gajiPokok;
+
 public:
-    
+   
+    AnggotaTim() : nama(""), peran(""), gajiPokok(0) {}
+
+    AnggotaTim(std::string n, std::string p, int gp) {
+        nama = n;
+        peran = p;
+        gajiPokok = gp;
+    }
+
+    virtual int hitungGajiTotal() {
+        return gajiPokok;
+    }
+
+    void printInfo() {
+        std::cout << "Gaji total " << nama << " (" << peran << ") adalah $" << hitungGajiTotal() << std::endl;
+    }
 };
 
 class Pembalap : public AnggotaTim {
 private:
-    
+    int jumlahPodium;
+
 public:
-    
-    int hitungGajiTotal() {
-      
+  
+    Pembalap() : AnggotaTim() {}
+
+  
+    Pembalap(std::string n, int gp, int pod) : AnggotaTim(n, "pembalap", gp) {
+        jumlahPodium = pod;
     }
+
+    int hitungGajiTotal() override {
+        return gajiPokok + (jumlahPodium * 20000);
+    }
+
     void printInfo() {
-      
+        std::cout << "Gaji total " << nama << " (" << peran << ") adalah $" << hitungGajiTotal() << std::endl;
     }
 };
 
 class Crew : public AnggotaTim {
 private:
-    
+    int jumlahRace;
+
 public:
     
-    int hitungGajiTotal() {
-        
+    Crew() : AnggotaTim() {}
+
+   
+    Crew(std::string n, int gp, int r) : AnggotaTim(n, "crew", gp) {
+        jumlahRace = r;
     }
+
+    int hitungGajiTotal() override {
+        return gajiPokok + (jumlahRace * 1000);
+    }
+
     void printInfo() {
-        
+        std::cout << "Gaji total " << nama << " (" << peran << ") adalah $" << hitungGajiTotal() << std::endl;
     }
 };
 
